@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <StartupObject>TaggedNotes.TaggedNotesStartup</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaggedNotes.Interfaces\TaggedNotes.Interfaces.csproj" />
+    <ProjectReference Include="..\TaggedNotes.View\TaggedNotes.View.csproj" />
+  </ItemGroup>
+
+</Project>
