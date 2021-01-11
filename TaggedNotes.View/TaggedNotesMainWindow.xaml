@@ -4,20 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="TaggedNotes" Height="450" Width="800">
+        Name="MainWindow" Title="TaggedNotes" Height="450" Width="800">
+
     <Window.Resources>
-        <Style x:Key="TagStyle">
-            <Setter Property="ListViewItem.HorizontalAlignment" Value="Center" />
+        <Style TargetType="{x:Type TextBox}" x:Key="TextBoxStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="MaxHeight" Value="100" />
         </Style>
     </Window.Resources>
-    
+
     <Grid Name="TotalLayout">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -30,28 +36,26 @@
             </Button>
         </ToolBar>
 
-        <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
-            <ListView>
-                <ListViewItem>
-                    Note 1
-                </ListViewItem>
-                <ListViewItem>
-                    Note 2
-                </ListViewItem>
-            </ListView>
+        <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" >
+            <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
-        
+
         <GridSplitter Name="SplitterBetweenNotesAndTags" Grid.Row="1" Grid.Column="1" Width="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightBlue"></GridSplitter>
 
-        <Grid Name="TagPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2">
-            <ListView>
-                <ListViewItem Style="{StaticResource TagStyle}">
-                    Tag 1
-                </ListViewItem>
-                <ListViewItem Style="{StaticResource TagStyle}">
-                    Tag 2
-                </ListViewItem>
-            </ListView>
+        <Grid Name="TagPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2" MinWidth="200">
+            <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentTags}" HorizontalAlignment="Center" BorderThickness="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 </Window>
