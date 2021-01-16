@@ -14,6 +14,7 @@
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
             <Setter Property="MaxHeight" Value="100" />
+            <Setter Property="Background" Value="Green" />
         </Style>
     </Window.Resources>
 
@@ -37,10 +38,16 @@
         </ToolBar>
 
         <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" >
-            <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}">
+            <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="ListBoxItem.Background" Value="Red"/>
+                        <Setter Property="ListBoxItem.HorizontalAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}"/>
+                        <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}" HorizontalScrollBarVisibility="Disabled"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
