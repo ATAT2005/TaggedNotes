@@ -38,5 +38,17 @@ namespace TaggedNotes.View
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Special workaround for stretching short textbox items of the listbox
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="e">Routed event arguments</param>
+        /// <see cref="https://social.msdn.microsoft.com/Forums/security/en-US/d066ea21-2723-4622-8276-698c745f4184/how-to-make-textbox-stretch-horizontally-to-fill-width-of-listbox?forum=silverlightnet"/>
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement g = sender as FrameworkElement;
+            g.Width = List.ActualWidth - 6;  // make the grid the same width as the listbox (- some border width)
+        }
     }
 }

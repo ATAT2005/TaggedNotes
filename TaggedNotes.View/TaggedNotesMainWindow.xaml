@@ -14,7 +14,7 @@
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
             <Setter Property="MaxHeight" Value="100" />
-            <Setter Property="Background" Value="Green" />
+            <!--<Setter Property="Background" Value="Green" />-->
         </Style>
     </Window.Resources>
 
@@ -38,16 +38,18 @@
         </ToolBar>
 
         <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" >
-            <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.ItemContainerStyle>
+            <ListBox x:Name="List" ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Loaded="Grid_Loaded">
+                <!--<ListBox.ItemContainerStyle>
                     <Style>
                         <Setter Property="ListBoxItem.Background" Value="Red"/>
-                        <Setter Property="ListBoxItem.HorizontalAlignment" Value="Stretch"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
+                        </Style>
+                </ListBox.ItemContainerStyle>-->
+                <ListBox.ItemTemplate >
                     <DataTemplate>
-                        <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}" HorizontalScrollBarVisibility="Disabled"/>
+                        <Grid Loaded="Grid_Loaded">
+                            <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}"/>
+                        </Grid>
+                        <!--HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch"-->
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -59,7 +61,7 @@
             <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentTags}" HorizontalAlignment="Center" BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}" />
+                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
