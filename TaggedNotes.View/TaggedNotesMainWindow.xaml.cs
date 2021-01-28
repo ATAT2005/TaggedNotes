@@ -37,18 +37,32 @@ namespace TaggedNotes.View
         public TaggedNotesMainWindow()
         {
             InitializeComponent();
+
+            AddHandler(CheckBox.PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(tag_PreviewMouseLeftButtonDownEvent));
         }
 
         /// <summary>
         /// Special workaround for stretching short textbox items of the listbox
         /// </summary>
-        /// <param name="sender">Sender object</param>
-        /// <param name="e">Routed event arguments</param>
         /// <see cref="https://social.msdn.microsoft.com/Forums/security/en-US/d066ea21-2723-4622-8276-698c745f4184/how-to-make-textbox-stretch-horizontally-to-fill-width-of-listbox?forum=silverlightnet"/>
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             FrameworkElement g = sender as FrameworkElement;
             g.Width = List.ActualWidth - 6;  // make the grid the same width as the listbox (- some border width)
+        }
+        
+        /// <summary>
+        /// Start dragging tag on note
+        /// </summary>
+        private void tag_PreviewMouseLeftButtonDownEvent(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is FrameworkElement fe && fe.DataContext is ITag dc)
+                DragDrop.DoDragDrop(fe, dc, DragDropEffects.Copy);
+        }
+
+        private void lblTarget_Drop(object sender, DragEventArgs e)
+        {
+            ((Label)sender).Content = e.Data.GetData(DataFormats.Text);
         }
     }
 }
