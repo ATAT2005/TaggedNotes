@@ -14,6 +14,7 @@
             <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
             <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
             <Setter Property="MaxHeight" Value="100" />
+            <Setter Property="AllowDrop" Value="true" />
             <!--<Setter Property="Background" Value="Green" />-->
         </Style>
     </Window.Resources>
@@ -21,14 +22,14 @@
     <Grid Name="TotalLayout">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />   <!-- Grid row for main toolbar -->
+            <RowDefinition Height="*" />      <!-- Grid row for note and tag components -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />    <!-- Grid column for notes - docks for all free space -->
+            <ColumnDefinition Width="Auto" /> <!-- Grid column for splitter between notes and tags -->
+			<ColumnDefinition Width="Auto" MinWidth="100" MaxWidth="300"/> <!-- Grid column for tags -->
         </Grid.ColumnDefinitions>
 
         <ToolBar Name="MainToolbar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
@@ -37,34 +38,62 @@
             </Button>
         </ToolBar>
 
-        <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" >
-            <ListBox x:Name="List" ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Loaded="Grid_Loaded">
-                <!--<ListBox.ItemContainerStyle>
+        <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
+            <Grid Name="NoteComponents" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" /> <!-- Grid row for note filter -->
+                    <RowDefinition Height="*" /> <!-- Grid row for note collection -->
+                    <RowDefinition Height="Auto" /> <!-- Grid row for splitter between note collection and tags of the selected note -->
+					<RowDefinition Height="Auto" MinHeight="50" MaxHeight="300"/> <!-- Tags of the selected note -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" /> <!-- Only one column - for filter, note collection, splitter and selected note tags -->
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="NoteFilter" Grid.Row="0" Grid.Column="0"></TextBox>
+                
+                <ListBox x:Name="List" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Loaded="Grid_Loaded" AllowDrop="True">
+                    <!--AllowDrop="True"  Drop="lblTarget_Drop"-->
+                    <!--<ListBox.ItemContainerStyle>
                     <Style>
                         <Setter Property="ListBoxItem.Background" Value="Red"/>
                         </Style>
                 </ListBox.ItemContainerStyle>-->
-                <ListBox.ItemTemplate >
-                    <DataTemplate>
-                        <Grid Loaded="Grid_Loaded">
-                            <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}"/>
-                        </Grid>
-                        <!--HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch"-->
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Loaded="Grid_Loaded">
+                                <!--AllowDrop="True"  Drop="lblTarget_Drop"-->
+                                <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}" AllowDrop="True" Drop="note_Drop"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+				<GridSplitter x:Name="SplitterBetweenCurrentNoteAndItsTags" ResizeDirection="Rows" Grid.Row="2" Grid.Column="0" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGreen"></GridSplitter>
+
+				<WrapPanel Grid.Row="3" Grid.Column="0">
+                    <TextBox>asdasd</TextBox>
+                    <TextBox>Xcvcv</TextBox>
+                    <TextBox>1232</TextBox>
+                </WrapPanel>
+            </Grid>
         </Grid>
 
         <GridSplitter Name="SplitterBetweenNotesAndTags" Grid.Row="1" Grid.Column="1" Width="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightBlue"></GridSplitter>
 
         <Grid Name="TagPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2" MinWidth="200">
-            <ListBox ItemsSource="{Binding ElementName=MainWindow, Path=CurrentTags}" HorizontalAlignment="Center" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <StackPanel>
+                <TextBox Name="TagFilter"></TextBox>
+                <ListBox Name="Tags" ItemsSource="{Binding ElementName=MainWindow, Path=CurrentTags}" HorizontalAlignment="Center" BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
