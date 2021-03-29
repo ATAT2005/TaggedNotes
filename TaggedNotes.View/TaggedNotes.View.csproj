@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaggedNotes.Interfaces\TaggedNotes.Interfaces.csproj" />
+    <ProjectReference Include="..\TaggedNotes.ViewModel\TaggedNotes.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>
