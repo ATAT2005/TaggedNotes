@@ -1,0 +1,6 @@
+* Add toolbar button for adding new note
+* Add toolbar button for adding new tag
+* Filter notes by upper textbox
+* Filter tags by upper textbox
+* Filter linked note tags by current note
+* Make drag'n'drop for tags&notes 
