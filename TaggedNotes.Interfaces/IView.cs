@@ -10,7 +10,7 @@ namespace TaggedNotes.Interfaces
     public interface IView
     {
         /// <summary>
-        /// Show application window
+        /// Shows application window
         /// </summary>
         void Show();
     }

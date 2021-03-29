@@ -18,6 +18,6 @@ namespace TaggedNotes.Interfaces
         /// <summary>
         /// Is tag checked
         /// </summary>
-        bool IsSelected { get; set; }
+        bool Selected { get; set; }
     }
 }
