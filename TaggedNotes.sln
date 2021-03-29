@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaggedNotes", "TaggedNotes\TaggedNotes.csproj", "{9FC15AD8-10AF-4370-B3B1-FE363F68BA1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes", "TaggedNotes\TaggedNotes.csproj", "{9FC15AD8-10AF-4370-B3B1-FE363F68BA1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaggedNotes.Interfaces", "TaggedNotes.Interfaces\TaggedNotes.Interfaces.csproj", "{AA975727-96C0-4198-B3D0-7C4C537E6FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.Interfaces", "TaggedNotes.Interfaces\TaggedNotes.Interfaces.csproj", "{AA975727-96C0-4198-B3D0-7C4C537E6FBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaggedNotes.View", "TaggedNotes.View\TaggedNotes.View.csproj", "{B211B6CD-73F7-4FCC-A9BD-D2913A9C8C43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.View", "TaggedNotes.View\TaggedNotes.View.csproj", "{B211B6CD-73F7-4FCC-A9BD-D2913A9C8C43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.ViewModel", "TaggedNotes.ViewModel\TaggedNotes.ViewModel.csproj", "{D89195B6-566D-462C-8D0B-903F3E58F603}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.Model", "TaggedNotes.Model\TaggedNotes.Model.csproj", "{962E5245-BDEA-43C0-9F83-ED6F48A3A8D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.Model.Tests", "TaggedNotes.Model.Tests\TaggedNotes.Model.Tests.csproj", "{04F3FF65-9753-476E-9183-CC9048778863}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaggedNotes.ViewModel.Tests", "TaggedNotes.ViewModel.Tests\TaggedNotes.ViewModel.Tests.csproj", "{96315682-3E41-4663-B3BE-73E028428AC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +35,22 @@ Global
 		{B211B6CD-73F7-4FCC-A9BD-D2913A9C8C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B211B6CD-73F7-4FCC-A9BD-D2913A9C8C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B211B6CD-73F7-4FCC-A9BD-D2913A9C8C43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D89195B6-566D-462C-8D0B-903F3E58F603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D89195B6-566D-462C-8D0B-903F3E58F603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D89195B6-566D-462C-8D0B-903F3E58F603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D89195B6-566D-462C-8D0B-903F3E58F603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962E5245-BDEA-43C0-9F83-ED6F48A3A8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962E5245-BDEA-43C0-9F83-ED6F48A3A8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962E5245-BDEA-43C0-9F83-ED6F48A3A8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962E5245-BDEA-43C0-9F83-ED6F48A3A8D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F3FF65-9753-476E-9183-CC9048778863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F3FF65-9753-476E-9183-CC9048778863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F3FF65-9753-476E-9183-CC9048778863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F3FF65-9753-476E-9183-CC9048778863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96315682-3E41-4663-B3BE-73E028428AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96315682-3E41-4663-B3BE-73E028428AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96315682-3E41-4663-B3BE-73E028428AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96315682-3E41-4663-B3BE-73E028428AC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
