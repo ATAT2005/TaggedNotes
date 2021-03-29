@@ -15,8 +15,7 @@ namespace TaggedNotes.View
     {
         public Tags()
         {
-            this.Add(new Tag(1, "Tag 1", true));
-            this.Add(new Tag(2, "Tag 222", false));
+           
         }
     }
 }
