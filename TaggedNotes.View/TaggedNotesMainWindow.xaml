@@ -54,29 +54,36 @@
 
                 <TextBox x:Name="NoteFilter" Grid.Row="0" Grid.Column="0"></TextBox>
                 
-                <ListBox x:Name="List" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ElementName=MainWindow, Path=CurrentNotes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Loaded="Grid_Loaded" AllowDrop="True">
-                    <!--AllowDrop="True"  Drop="lblTarget_Drop"-->
+                <ListBox x:Name="List" 
+                         Grid.Row="1" Grid.Column="0"
+                         ItemsSource="{Binding Notes}"
+                         SelectedItem="{Binding SelectedNote}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                         SelectionMode="Single"
+                         AllowDrop="True"
+                         Loaded="Grid_Loaded" 
+                         SelectionChanged="List_SelectionChanged"
+                         Drop="note_Drop">
+                         
                     <!--<ListBox.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="ListBoxItem.Background" Value="Red"/>
-                        </Style>
-                </ListBox.ItemContainerStyle>-->
-                    <ListBox.ItemTemplate>
+                            <Style>
+                                <Setter Property="ListBoxItem.Background" Value="Red"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>-->
+                    
+                    <!--<ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Loaded="Grid_Loaded">
-                                <!--AllowDrop="True"  Drop="lblTarget_Drop"-->
                                 <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}" AllowDrop="True" Drop="note_Drop"/>
                             </Grid>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
+                    </ListBox.ItemTemplate>-->
                 </ListBox>
 
 				<GridSplitter x:Name="SplitterBetweenCurrentNoteAndItsTags" ResizeDirection="Rows" Grid.Row="2" Grid.Column="0" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGreen"></GridSplitter>
 
-				<WrapPanel Grid.Row="3" Grid.Column="0">
-                    <TextBox>asdasd</TextBox>
-                    <TextBox>Xcvcv</TextBox>
-                    <TextBox>1232</TextBox>
+                <WrapPanel Grid.Row="3" Grid.Column="0">
+                    <ListBox x:Name="SelectedNoteTags" ItemsSource="{Binding SelectedNote.Tags}" ></ListBox>
                 </WrapPanel>
             </Grid>
         </Grid>
@@ -86,7 +93,7 @@
         <Grid Name="TagPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2" MinWidth="200">
             <StackPanel>
                 <TextBox Name="TagFilter"></TextBox>
-                <ListBox Name="Tags" ItemsSource="{Binding ElementName=MainWindow, Path=CurrentTags}" HorizontalAlignment="Center" BorderThickness="0">
+                <ListBox Name="Tags" ItemsSource="{Binding Tags}" HorizontalAlignment="Center" BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>

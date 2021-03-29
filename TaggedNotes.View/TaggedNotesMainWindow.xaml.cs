@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,29 +17,54 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using TaggedNotes.Interfaces;
+using TaggedNotes.ViewModel;
 
 namespace TaggedNotes.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class TaggedNotesMainWindow : Window, IView
+    public partial class TaggedNotesMainWindow : Window, IView//, INotifyPropertyChanged
     {
         /// <summary>
         /// All tags to show
         /// </summary>
-        public Tags CurrentTags { get; set; } = new Tags();
+       /*public Tags CurrentTags { get; set; } = new Tags();
 
         /// <summary>
         /// All notes to show
         /// </summary>
-        public Notes CurrentNotes { get; set; } = new Notes();
+        public Notes CurrentNotes { get; set; } = new Notes();*/
+
+       /* private Grid _selectedNote = null;
+        public Grid SelectedNote
+        {
+            get
+            {
+                return _selectedNote;
+            }
+            set
+            {
+                _selectedNote = value;
+
+                PropertyChanged?.Invoke(_selectedNote, new PropertyChangedEventArgs("SelectedNote"));
+            }
+        }*/
+
+       /* #region INotifyPropertyChanged contract
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion*/
 
         public TaggedNotesMainWindow()
         {
             InitializeComponent();
 
             AddHandler(CheckBox.PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(tag_PreviewMouseLeftButtonDownEvent));
+            //AddHandler(ListBox.SelectionChangedEvent, new RoutedEventHandler(List_SelectionChanged));
+
+            DataContext = new TaggedNotesViewModel();
         }
 
         /// <summary>
@@ -50,9 +76,21 @@ namespace TaggedNotes.View
             FrameworkElement g = sender as FrameworkElement;
             g.Width = List.ActualWidth - 6;  // make the grid the same width as the listbox (- some border width)
         }
-        
+
+        private void List_SelectionChanged(object sender, RoutedEventArgs args)
+        {
+            var viewmodel = DataContext as IViewModel;
+
+            if (viewmodel == null)
+                return;
+
+            var tags = viewmodel.SelectedNote.Tags;
+
+            int i = 0;
+        }
+
         /// <summary>
-        /// Start dragging tag on note
+        /// Start dragging a tag on a note
         /// </summary>
         private void tag_PreviewMouseLeftButtonDownEvent(object sender, RoutedEventArgs e)
         {
@@ -60,9 +98,12 @@ namespace TaggedNotes.View
                 DragDrop.DoDragDrop(fe, dc, DragDropEffects.Copy);
         }
 
-        private void lblTarget_Drop(object sender, DragEventArgs e)
+        /// <summary>
+        /// Dropping a tag on a note to make a link with it
+        /// </summary>
+        private void note_Drop(object sender, DragEventArgs e)
         {
-            ((Label)sender).Content = e.Data.GetData(DataFormats.Text);
+
         }
     }
 }
