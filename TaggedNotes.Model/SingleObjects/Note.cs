@@ -15,8 +15,6 @@ namespace TaggedNotes.Model
 	{
 		private string _text;
 
-		private ObservableCollection<ITag> _tags;
-
 		#region INote contract
 
 		public string Text
@@ -29,17 +27,12 @@ namespace TaggedNotes.Model
 			}
 		}
 
-		public ObservableCollection<ITag> Tags
-		{
-			get => _tags;
-			set
-			{
-				_tags = value;
-				OnPropertyChanged("Tags");
-			}
-		}
-
 		#endregion
+
+		/// <summary>
+		/// Empty constructor (for EntityFramework, etc)
+		/// </summary>
+		public Note() { }
 
 		/// <summary>
 		/// Constructor
@@ -47,11 +40,10 @@ namespace TaggedNotes.Model
 		/// <param name="id">Object identifier</param>
 		/// <param name="name">Tag name</param>
 		/// <param name="selected">Is tag checked</param>
-		public Note(int id, string text, ObservableCollection<ITag> tags)
+		public Note(int id, string text)
 		{
 			Id = id;
 			Text = text;
-			Tags = tags;
 		}
 
 		public override string ToString()

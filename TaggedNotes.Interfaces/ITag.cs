@@ -9,7 +9,6 @@ namespace TaggedNotes.Interfaces
     /// </summary>
     public interface ITag : IBaseObject
     {
-
         /// <summary>
         /// Tag name
         /// </summary>

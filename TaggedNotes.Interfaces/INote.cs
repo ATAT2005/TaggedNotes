@@ -14,10 +14,5 @@ namespace TaggedNotes.Interfaces
         /// Note text
         /// </summary>
         string Text { get; set; }
-
-        /// <summary>
-        /// Tags linked to note
-        /// </summary>
-        ObservableCollection<ITag> Tags { get; set; }
     }
 }

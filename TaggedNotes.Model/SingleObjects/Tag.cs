@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
@@ -39,6 +40,11 @@ namespace TaggedNotes.Model
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Empty constructor (for EntityFramework, etc)
+		/// </summary>
+		public Tag() { }
 
 		/// <summary>
 		/// Constructor
