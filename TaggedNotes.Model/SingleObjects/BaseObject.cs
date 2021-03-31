@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,7 +14,13 @@ namespace TaggedNotes.Model
 	/// </summary>
 	public abstract class BaseObject : IBaseObject, INotifyPropertyChanged
 	{
+		#region Private members
+
 		private int _id;
+
+		private ObservableCollection<TagNoteLink> _tagNoteLinks;
+
+		#endregion
 
 		#region IBaseObject contract
 
@@ -26,7 +33,7 @@ namespace TaggedNotes.Model
 				OnPropertyChanged("Id");
 			}
 		}
-
+		
 		#endregion
 
 		#region INotifyPropertyChanged contract
@@ -34,6 +41,20 @@ namespace TaggedNotes.Model
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		#endregion
+
+		/// <summary>
+		/// Links between tags and notes
+		/// </summary>
+		public ObservableCollection<TagNoteLink> TagNoteLinks
+		{
+			get => _tagNoteLinks;
+			set
+			{
+				_tagNoteLinks = value;
+
+				OnPropertyChanged("TagNoteLinks");
+			}
+		}
 
 		public void OnPropertyChanged([CallerMemberName] string name = "")
 		{
