@@ -29,11 +29,11 @@ namespace TaggedNotes.Model.Tests
 		{
 			var tag = new Tag(1, "test", true);
 
-			var note = new Note(1, "noteText", new System.Collections.ObjectModel.ObservableCollection<Interfaces.ITag>(new Tag[] { tag }));
+			var note = new Note(1, "noteText");//, new System.Collections.ObjectModel.ObservableCollection<Tag>(new Tag[] { tag }));
 
 			Assert.AreEqual(note.Id, 1);
 			Assert.AreEqual(note.Text, "noteText");
-			Assert.AreEqual(note.Tags, new List<Interfaces.ITag>(new[] { tag }));
+			Assert.AreEqual(note.TagNoteLinks, new List<Interfaces.ITag>(new[] { tag }));
 			Assert.AreEqual(note.ToString(), "noteText");
 		}
 	}
