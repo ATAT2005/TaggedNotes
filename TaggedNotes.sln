@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.Model", "Tagged
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.Model.Tests", "TaggedNotes.Model.Tests\TaggedNotes.Model.Tests.csproj", "{04F3FF65-9753-476E-9183-CC9048778863}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaggedNotes.ViewModel.Tests", "TaggedNotes.ViewModel.Tests\TaggedNotes.ViewModel.Tests.csproj", "{96315682-3E41-4663-B3BE-73E028428AC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaggedNotes.ViewModel.Tests", "TaggedNotes.ViewModel.Tests\TaggedNotes.ViewModel.Tests.csproj", "{96315682-3E41-4663-B3BE-73E028428AC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7429A6B3-34BC-4CBC-A195-C679D6B92C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04F3FF65-9753-476E-9183-CC9048778863} = {7429A6B3-34BC-4CBC-A195-C679D6B92C50}
+		{96315682-3E41-4663-B3BE-73E028428AC0} = {7429A6B3-34BC-4CBC-A195-C679D6B92C50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {664D51F6-1E35-4797-931A-E7EA9E6D62B7}
