@@ -24,47 +24,16 @@ namespace TaggedNotes.View
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class TaggedNotesMainWindow : Window, IView//, INotifyPropertyChanged
+    public partial class TaggedNotesMainWindow : Window
     {
-        /// <summary>
-        /// All tags to show
-        /// </summary>
-       /*public Tags CurrentTags { get; set; } = new Tags();
-
-        /// <summary>
-        /// All notes to show
-        /// </summary>
-        public Notes CurrentNotes { get; set; } = new Notes();*/
-
-       /* private Grid _selectedNote = null;
-        public Grid SelectedNote
-        {
-            get
-            {
-                return _selectedNote;
-            }
-            set
-            {
-                _selectedNote = value;
-
-                PropertyChanged?.Invoke(_selectedNote, new PropertyChangedEventArgs("SelectedNote"));
-            }
-        }*/
-
-       /* #region INotifyPropertyChanged contract
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion*/
-
         public TaggedNotesMainWindow()
         {
             InitializeComponent();
 
             AddHandler(CheckBox.PreviewMouseLeftButtonDownEvent, new RoutedEventHandler(tag_PreviewMouseLeftButtonDownEvent));
-            //AddHandler(ListBox.SelectionChangedEvent, new RoutedEventHandler(List_SelectionChanged));
+			//AddHandler(ListBox.SelectionChangedEvent, new RoutedEventHandler(List_SelectionChanged));
 
-            DataContext = new TaggedNotesViewModel();
+			DataContext = new ViewModel.ViewModel();
         }
 
         /// <summary>
@@ -79,12 +48,12 @@ namespace TaggedNotes.View
 
         private void List_SelectionChanged(object sender, RoutedEventArgs args)
         {
-            var viewmodel = DataContext as IViewModel;
+            var viewmodel = DataContext as ViewModel.ViewModel;
 
             if (viewmodel == null)
                 return;
 
-            var tags = viewmodel.SelectedNote.Tags;
+            //var tags = viewmodel.SelectedNote.TagNoteLinks;
 
             int i = 0;
         }
