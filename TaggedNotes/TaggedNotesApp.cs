@@ -14,8 +14,8 @@ namespace TaggedNotes
         {
             base.OnStartup(e);
 
-            IView window = new TaggedNotesMainWindow();
-            this.MainWindow = window as TaggedNotesMainWindow;
+            TaggedNotesMainWindow window = new TaggedNotesMainWindow();
+            this.MainWindow = window;
             window.Show();
         }
     }
