@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,46 +14,108 @@ namespace TaggedNotes.ViewModel
 {
 	public class ViewModel
 	{
-		public INote SelectedNote { get; set; }
+		private ModelContext _context = null;
 
-		public ObservableCollection<ITag> Tags { get; set; }
-		
-		public ObservableCollection<INote> Notes { get; set; }
+		public Note SelectedNote { get; set; }
 
-		public ViewModel()
+		public Tag SelectedTag { get; set; }
+
+		public ObservableCollection<Tag> Tags { get; set; }
+
+		public ObservableCollection<Note> Notes { get; set; }
+
+		private RelayCommand addNote;
+		public RelayCommand AddNote
 		{
-			Tags = new ObservableCollection<ITag>();
-
-			Notes = new ObservableCollection<INote>();
-
-			using (var context = new ModelContext())
+			get
 			{
-				foreach (var note in context.Notes)
-					Notes.Add(note);
-
-				foreach (var tag in context.Tags)
-					Tags.Add(tag);
+				return addNote ??= new RelayCommand(() =>
+				  {
+					  var note = new Note(Notes.Max(x => x.Id) + 1, "New Note");
+					  Notes.Add(note);
+					  SelectedNote = note;
+				  });
 			}
 		}
 
-		/*public void AddTag(ITag tag)
+		private RelayCommand removeNote;
+		public RelayCommand RemoveNote
 		{
-			Tags.Add(tag);
+			get
+			{
+				return removeNote ??= new RelayCommand(() =>
+				{
+					Notes.Remove(SelectedNote);
+				});
+			}
 		}
 
-		public void RemoveTag(ITag tag)
+		private RelayCommand addTag;
+		public RelayCommand AddTag
 		{
-			Tags.Remove(tag);
+			get
+			{
+				return addTag ??= new RelayCommand(() =>
+				{
+					var tag = new Tag(Tags.Max(x => x.Id) + 1, "New Tag", false);
+					Tags.Add(tag);
+				});
+			}
 		}
 
-		public void AddNote(INote note)
+		private RelayCommand removeTag;
+		public RelayCommand RemoveTag
 		{
-			Notes.Add(note);
+			get
+			{
+				return removeTag ??= new RelayCommand(() =>
+				{
+					Tags.Remove(SelectedTag);
+				});
+			}
 		}
 
-		public void RemoveNote(INote note)
+		private RelayCommand saveChanges;
+		public RelayCommand SaveChanges
 		{
-			Notes.Remove(note);
-		}*/
+			get
+			{
+				return saveChanges ??= new RelayCommand(() =>
+				{
+					foreach (var note in _context.Notes)
+						if (!Notes.Contains(note))
+							_context.Notes.Remove(note);
+
+					foreach (var tag in _context.Tags)
+						if (!Tags.Contains(tag))
+							_context.Tags.Remove(tag);
+
+					foreach (var note in Notes)
+						if (!_context.Notes.Contains(note))
+							_context.Notes.Add(note);
+
+					foreach (var tag in Tags)
+						if (!_context.Tags.Contains(tag))
+							_context.Tags.Add(tag);
+					
+					_context.SaveChanges();
+				});
+			}
+		}
+
+		public ViewModel()
+		{
+			Tags = new ObservableCollection<Tag>();
+
+			Notes = new ObservableCollection<Note>();
+
+			_context = new ModelContext();
+
+			foreach (var note in _context.Notes)
+				Notes.Add(note);
+			
+			foreach (var tag in _context.Tags)
+				Tags.Add(tag);
+		}
 	}
 }
