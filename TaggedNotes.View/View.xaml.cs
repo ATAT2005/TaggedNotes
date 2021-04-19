@@ -43,7 +43,7 @@ namespace TaggedNotes.View
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             FrameworkElement g = sender as FrameworkElement;
-            g.Width = List.ActualWidth - 6;  // make the grid the same width as the listbox (- some border width)
+            g.Width = ListNotes.ActualWidth - 6;  // make the grid the same width as the listbox (- some border width)
         }
 
         private void List_SelectionChanged(object sender, RoutedEventArgs args)

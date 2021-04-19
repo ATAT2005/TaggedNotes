@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Name="MainWindow" Title="TaggedNotes" Height="450" Width="800">
+        Name="MainWindow" Title="TaggedNotes" Height="450" Width="1024">
 
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}" x:Key="TextBoxStyle">
@@ -33,9 +33,11 @@
         </Grid.ColumnDefinitions>
 
         <ToolBar Name="MainToolbar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <Button>
-                Test
-            </Button>
+			<Button Command="{Binding AddNote}">Add Note</Button>
+			<Button Command="{Binding RemoveNote}">Remove Note</Button>
+			<Button Command="{Binding AddTag}">Add Tag</Button>
+			<Button Command="{Binding RemoveTag}">Remove Tag</Button>
+			<Button Command="{Binding SaveChanges}">Save Changes</Button>
         </ToolBar>
 
         <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
@@ -54,7 +56,7 @@
 
                 <TextBox x:Name="NoteFilter" Grid.Row="0" Grid.Column="0"></TextBox>
                 
-                <ListBox x:Name="List" 
+                <ListBox x:Name="ListNotes" 
                          Grid.Row="1" Grid.Column="0"
                          ItemsSource="{Binding Notes}"
                          SelectedItem="{Binding SelectedNote}"
@@ -64,8 +66,14 @@
                          Loaded="Grid_Loaded" 
                          SelectionChanged="List_SelectionChanged"
                          Drop="note_Drop">
-                         
-                    <!--<ListBox.ItemContainerStyle>
+
+					    <!--<ListBox.ItemTemplate>
+						    <DataTemplate>
+							    <TextBox Text="{Binding Path=Text}"/>
+						    </DataTemplate>
+					    </ListBox.ItemTemplate>-->
+					
+					<!--<ListBox.ItemContainerStyle>
                             <Style>
                                 <Setter Property="ListBoxItem.Background" Value="Red"/>
                             </Style>
@@ -93,11 +101,18 @@
         <Grid Name="TagPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2" MinWidth="200">
             <StackPanel>
                 <TextBox Name="TagFilter"></TextBox>
-                <ListBox Name="Tags" ItemsSource="{Binding Tags}" HorizontalAlignment="Center" BorderThickness="0">
+				<ListBox 
+					Name="Tags" 
+					ItemsSource="{Binding Tags}" 
+					SelectedItem="{Binding SelectedTag}" 
+					HorizontalAlignment="Center"
+					BorderThickness="0"
+					SelectionMode="Single">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>
-                        </DataTemplate>
+                            <!--<CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>-->
+							<TextBox Text="{Binding Path=Name}"/>
+						</DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
