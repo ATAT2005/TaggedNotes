@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 using TaggedNotes.Interfaces;
 
@@ -38,7 +40,7 @@ namespace TaggedNotes.Model
         /// <remarks>
         /// TODO: change for app.config initialization
         /// </remarks>
-		protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(@"Data Source=test.db");
+		protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite(ConfigurationManager.AppSettings["ConnString"]);
 
         /// <summary>
         /// Many-to-many mapping for linking tags and notes
