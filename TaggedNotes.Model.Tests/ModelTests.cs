@@ -33,7 +33,7 @@ namespace TaggedNotes.Model.Tests
 
 			Assert.AreEqual(note.Id, 1);
 			Assert.AreEqual(note.Text, "noteText");
-			Assert.AreEqual(note.TagNoteLinks, new List<Interfaces.ITag>(new[] { tag }));
+			Assert.AreEqual(note.TagNoteLinks, new List<Tag>(new[] { tag }));
 			Assert.AreEqual(note.ToString(), "noteText");
 		}
 	}
