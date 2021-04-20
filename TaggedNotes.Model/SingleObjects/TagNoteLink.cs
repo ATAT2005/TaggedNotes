@@ -28,5 +28,10 @@ namespace TaggedNotes.Model
 			IdTag = tag.Id;
 			IdNote = note.Id;
 		}
+
+		public override string ToString()
+		{
+			return Tag?.Name;
+		}
 	}
 }
