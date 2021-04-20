@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 using TaggedNotes.Interfaces;
 using TaggedNotes.Model;
 
@@ -97,7 +99,7 @@ namespace TaggedNotes.ViewModel
 					foreach (var tag in Tags)
 						if (!_context.Tags.Contains(tag))
 							_context.Tags.Add(tag);
-					
+
 					_context.SaveChanges();
 				});
 			}
@@ -111,9 +113,9 @@ namespace TaggedNotes.ViewModel
 
 			_context = new ModelContext();
 
-			foreach (var note in _context.Notes)
+			foreach (var note in _context.Notes.Include(x => x.TagNoteLinks))
 				Notes.Add(note);
-			
+
 			foreach (var tag in _context.Tags)
 				Tags.Add(tag);
 		}
