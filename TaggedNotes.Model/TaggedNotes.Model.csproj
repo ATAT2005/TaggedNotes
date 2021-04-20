@@ -17,4 +17,10 @@
     <ProjectReference Include="..\TaggedNotes.Interfaces\TaggedNotes.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
