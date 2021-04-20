@@ -19,7 +19,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Name="TotalLayout">
+    <Grid Name="TotalLayout" Loaded="Grid_Loaded">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />   <!-- Grid row for main toolbar -->
@@ -45,18 +45,30 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" /> <!-- Grid row for note filter -->
-                    <RowDefinition Height="*" /> <!-- Grid row for note collection -->
-                    <RowDefinition Height="Auto" /> <!-- Grid row for splitter between note collection and tags of the selected note -->
+                    <RowDefinition Height="*" /> <!-- Grid row for note grid -->
+                    <RowDefinition Height="Auto" /> <!-- Grid row for splitter between note grid and tags of the selected note -->
 					<RowDefinition Height="Auto" MinHeight="50" MaxHeight="300"/> <!-- Tags of the selected note -->
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" /> <!-- Only one column - for filter, note collection, splitter and selected note tags -->
+                    <ColumnDefinition Width="*" /> <!-- Only one column - for filter, note grid, splitter and selected note tags -->
                 </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="NoteFilter" Grid.Row="0" Grid.Column="0"></TextBox>
-                
-                <ListBox x:Name="ListNotes" 
+                <DockPanel Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock>Filter notes by text:</TextBlock>
+                    <TextBox x:Name="NoteFilter" Grid.Row="0" Grid.Column="0" TextChanged="noteFilter_TextChanged"></TextBox>
+                </DockPanel>
+
+                <DataGrid x:Name="DataGridNotes" Grid.Row="1" Grid.Column="0"
+                          ItemsSource="{Binding Notes}"
+                          SelectedItem="{Binding SelectedNote}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Note text" Binding="{Binding Path=Text}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--<ListBox x:Name="ListNotes" 
                          Grid.Row="1" Grid.Column="0"
                          ItemsSource="{Binding Notes}"
                          SelectedItem="{Binding SelectedNote}"
@@ -67,13 +79,13 @@
                          SelectionChanged="List_SelectionChanged"
                          Drop="note_Drop">
 
-					    <!--<ListBox.ItemTemplate>
-						    <DataTemplate>
-							    <TextBox Text="{Binding Path=Text}"/>
-						    </DataTemplate>
-					    </ListBox.ItemTemplate>-->
-					
-					<!--<ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Path=Text}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    --><!--<ListBox.ItemContainerStyle>
                             <Style>
                                 <Setter Property="ListBoxItem.Background" Value="Red"/>
                             </Style>
@@ -85,13 +97,15 @@
                                 <TextBox Text="{Binding Text}" Style="{StaticResource TextBoxStyle}" AllowDrop="True" Drop="note_Drop"/>
                             </Grid>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>-->
-                </ListBox>
+                    </ListBox.ItemTemplate>--><!--
+                </ListBox>-->
 
-				<GridSplitter x:Name="SplitterBetweenCurrentNoteAndItsTags" ResizeDirection="Rows" Grid.Row="2" Grid.Column="0" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightGreen"></GridSplitter>
+                <GridSplitter x:Name="SplitterBetweenCurrentNoteAndItsTags" ResizeDirection="Rows" Grid.Row="2" Grid.Column="0" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightBlue"></GridSplitter>
 
-                <WrapPanel Grid.Row="3" Grid.Column="0">
-                    <ListBox x:Name="SelectedNoteTags" ItemsSource="{Binding SelectedNote.Tags}" ></ListBox>
+                <WrapPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+                    <ListBox x:Name="SelectedNoteTags" ItemsSource="{Binding SelectedNote.TagNoteLinks}">
+                        
+                    </ListBox>
                 </WrapPanel>
             </Grid>
         </Grid>
@@ -100,21 +114,32 @@
 
         <Grid Name="TagPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2" MinWidth="200">
             <StackPanel>
-                <TextBox Name="TagFilter"></TextBox>
-				<ListBox 
+                <DockPanel Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock>Filter tags by text:</TextBlock>
+                    <TextBox x:Name="TagFilter" Grid.Row="0" Grid.Column="0" TextChanged="tagFilter_TextChanged"></TextBox>
+                </DockPanel>
+                <DataGrid x:Name="DataGridTags"
+                          ItemsSource="{Binding Tags}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="✓" Binding="{Binding Path=Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
+                        <DataGridTextColumn Header="Tag name" Binding="{Binding Path=Name}" Width="Auto" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--<ListBox 
 					Name="Tags" 
 					ItemsSource="{Binding Tags}" 
 					SelectedItem="{Binding SelectedTag}" 
 					HorizontalAlignment="Center"
-					BorderThickness="0"
-					SelectionMode="Single">
+					BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <!--<CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}"/>-->
-							<TextBox Text="{Binding Path=Name}"/>
+                            <CheckBox IsChecked="{Binding Selected}" Content="{Binding}"/>
+							--><!--<TextBox Text="{Binding Path=Name}"/>--><!--
 						</DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                </ListBox>-->
             </StackPanel>
         </Grid>
     </Grid>
