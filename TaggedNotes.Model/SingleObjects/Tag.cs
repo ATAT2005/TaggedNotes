@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Text;
 
@@ -11,7 +12,7 @@ namespace TaggedNotes.Model
 	/// <summary>
 	/// Tag realization
 	/// </summary>
-	public class Tag : BaseObject, ITag
+	public class Tag : BaseObject//, ITag
 	{
 		private string _name;
 
@@ -61,7 +62,7 @@ namespace TaggedNotes.Model
 
 		public override string ToString()
 		{
-			//return $"{(IsSelected ? "☑" : "☐") } {Name} [{Id}]";
+			//return $"{(Selected ? "☑" : "☐") } {Name} [{Id}]";
 			return Name;
 		}
 	}
