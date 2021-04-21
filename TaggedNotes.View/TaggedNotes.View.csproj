@@ -7,8 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\document-delete.png" />
+    <None Remove="Resources\document-new.png" />
+    <None Remove="Resources\media-flash-smart-media.png" />
+    <None Remove="Resources\tag-delete.png" />
+    <None Remove="Resources\tag-new.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TaggedNotes.Interfaces\TaggedNotes.Interfaces.csproj" />
     <ProjectReference Include="..\TaggedNotes.ViewModel\TaggedNotes.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\document-delete.png" />
+    <Resource Include="Resources\document-new.png" />
+    <Resource Include="Resources\media-flash-smart-media.png" />
+    <Resource Include="Resources\tag-delete.png" />
+    <Resource Include="Resources\tag-new.png" />
   </ItemGroup>
 
 </Project>
