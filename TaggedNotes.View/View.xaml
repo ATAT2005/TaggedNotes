@@ -33,11 +33,23 @@
         </Grid.ColumnDefinitions>
 
         <ToolBar Name="MainToolbar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-			<Button Command="{Binding AddNote}">Add Note</Button>
-			<Button Command="{Binding RemoveNote}">Remove Note</Button>
-			<Button Command="{Binding AddTag}">Add Tag</Button>
-			<Button Command="{Binding RemoveTag}">Remove Tag</Button>
-			<Button Command="{Binding SaveChanges}">Save Changes</Button>
+			<Button Command="{Binding SaveChanges}">
+				<Image Source="Resources\media-flash-smart-media.png" ToolTip="Save changes" Width="32" Height="32"/>
+			</Button>
+			<Separator/>
+			<Button Command="{Binding AddNote}">
+				<Image Source="Resources\document-new.png" ToolTip="Add new note" Width="32" Height="32"/>
+			</Button>
+			<Button Command="{Binding RemoveNote}">
+				<Image Source="Resources\document-delete.png" ToolTip="Delete selected note" Width="32" Height="32"/>
+			</Button>
+			<Separator/>
+			<Button Command="{Binding AddTag}">
+				<Image Source="Resources\tag-new.png" ToolTip="Add new tag" Width="32" Height="32"/>
+			</Button>
+			<Button Command="{Binding RemoveTag}">
+				<Image Source="Resources\tag-delete.png" ToolTip="Delete selected tag" Width="32" Height="32"/>
+			</Button>
         </ToolBar>
 
         <Grid Name="NoteGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
@@ -103,7 +115,7 @@
                 <GridSplitter x:Name="SplitterBetweenCurrentNoteAndItsTags" ResizeDirection="Rows" Grid.Row="2" Grid.Column="0" Height="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightBlue"></GridSplitter>
 
                 <WrapPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
-                    <ListBox x:Name="SelectedNoteTags" ItemsSource="{Binding SelectedNote.TagNoteLinks}">
+					<ListBox x:Name="SelectedNoteTags" ItemsSource="{Binding SelectedNote.TagNoteLinks}">
                         
                     </ListBox>
                 </WrapPanel>
@@ -120,11 +132,23 @@
                 </DockPanel>
                 <DataGrid x:Name="DataGridTags"
                           ItemsSource="{Binding Tags}"
+						  SelectedItem="{Binding SelectedTag}"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="✓" Binding="{Binding Path=Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" />
-                        <DataGridTextColumn Header="Tag name" Binding="{Binding Path=Name}" Width="Auto" />
+						<DataGridCheckBoxColumn Header="✓" Binding="{Binding Path=Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="Auto" >
+							<DataGridCheckBoxColumn.ElementStyle>
+								<Style TargetType="CheckBox">
+								</Style>
+							</DataGridCheckBoxColumn.ElementStyle>
+							<DataGridCheckBoxColumn.CellStyle>
+								<Style>
+									<EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+									<EventSetter Event="CheckBox.Unchecked" Handler="OnChecked"/>
+								</Style>
+							</DataGridCheckBoxColumn.CellStyle>
+						</DataGridCheckBoxColumn>
+						<DataGridTextColumn Header="Tag name" Binding="{Binding Path=Name}" Width="Auto" />
                     </DataGrid.Columns>
                 </DataGrid>
                 <!--<ListBox 

@@ -23,15 +23,24 @@ using TaggedNotes.Model;
 namespace TaggedNotes.View
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for TaggedNotesMainWindow.xaml
 	/// </summary>
 	public partial class TaggedNotesMainWindow : Window
 	{
+		/// <summary>
+		/// Shortcut for ViewModel
+		/// </summary>
 		private ViewModel.ViewModel VM { get => DataContext as ViewModel.ViewModel; }
 
-		CollectionViewSource _viewSourceNotes;
+		/// <summary>
+		/// Notes source view
+		/// </summary>
+		private CollectionViewSource _viewSourceNotes;
 
-		CollectionViewSource _viewSourceTags;
+		/// <summary>
+		/// Tags source view
+		/// </summary>
+		private CollectionViewSource _viewSourceTags;
 
 		public TaggedNotesMainWindow()
 		{
@@ -44,9 +53,8 @@ namespace TaggedNotes.View
 		}
 
 		/// <summary>
-		/// Special workaround for stretching short textbox items of the listbox
+		/// Initializing collection views for notes and tags
 		/// </summary>
-		/// <see cref="https://social.msdn.microsoft.com/Forums/security/en-US/d066ea21-2723-4622-8276-698c745f4184/how-to-make-textbox-stretch-horizontally-to-fill-width-of-listbox?forum=silverlightnet"/>
 		private void Grid_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (DataGridNotes.Items.Count > 0)
@@ -66,14 +74,34 @@ namespace TaggedNotes.View
 			//g.Width = ListNotes.ActualWidth - 6;  // make the grid the same width as the listbox (- some border width)
 		}
 
+		/// <summary>
+		/// Filters notes by text note filter and checked tags
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Args</param>
 		private void FilterNotes(object sender, FilterEventArgs e)
 		{
 			var note = e.Item as Note;
 
-			if (note != null && !string.IsNullOrWhiteSpace(NoteFilter.Text))
-				e.Accepted = note.Text.Contains(NoteFilter.Text, StringComparison.OrdinalIgnoreCase);
+			var textFilterAccepted = true;
+			var tagFilterAccepted = true;
+
+			if (note != null)
+			{
+				if (!string.IsNullOrWhiteSpace(NoteFilter.Text))
+					textFilterAccepted = note.Text.Contains(NoteFilter.Text, StringComparison.OrdinalIgnoreCase);
+
+				tagFilterAccepted = note.TagNoteLinks.Any(x => GetCheckedTags().Contains(x.IdTag));
+			}
+
+			e.Accepted = textFilterAccepted && tagFilterAccepted;
 		}
 
+		/// <summary>
+		/// Filters tags by text tag filter
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Args</param>
 		private void FilterTags(object sender, FilterEventArgs e)
 		{
 			var tag = e.Item as Tag;
@@ -82,16 +110,31 @@ namespace TaggedNotes.View
 				e.Accepted = tag.Name.Contains(TagFilter.Text, StringComparison.OrdinalIgnoreCase);
 		}
 
+		/// <summary>
+		/// If text filter for notes was changed, notes would be filtered
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Args</param>
 		private void noteFilter_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			_viewSourceNotes.View.Refresh();
+			_viewSourceNotes?.View?.Refresh();
 		}
 
+		/// <summary>
+		/// If text filter for tags was changed, tags would be filtered
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Args</param>
 		private void tagFilter_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			_viewSourceTags.View.Refresh();
+			_viewSourceTags?.View?.Refresh();
 		}
 
+		/// <summary>
+		/// ToDo
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="args"></param>
 		private void List_SelectionChanged(object sender, RoutedEventArgs args)
 		{
 			//var viewmodel = DataContext as ViewModel.ViewModel;
@@ -109,8 +152,34 @@ namespace TaggedNotes.View
 		/// </summary>
 		private void tag_PreviewMouseLeftButtonDownEvent(object sender, RoutedEventArgs e)
 		{
+			//todo
 			if (e.OriginalSource is FrameworkElement fe && fe.DataContext is ITag dc)
 				DragDrop.DoDragDrop(fe, dc, DragDropEffects.Copy);
+		}
+
+		/// <summary>
+		/// If tag was selected/unselected, notes would be filtered
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="e">Args</param>
+		private void OnChecked(object sender, RoutedEventArgs e)
+		{
+			_viewSourceNotes?.View?.Refresh();
+		}
+
+		/// <summary>
+		/// Returns list of checked tag ids
+		/// </summary>
+		/// <returns>List of checked tag ids</returns>
+		private List<int> GetCheckedTags()
+		{
+			var result = new List<int>();
+
+			foreach (var item in DataGridTags.Items)
+				if (item is Tag tag && tag.Selected)
+					result.Add(tag.Id);
+
+			return result;
 		}
 
 		/// <summary>
@@ -118,7 +187,7 @@ namespace TaggedNotes.View
 		/// </summary>
 		private void note_Drop(object sender, DragEventArgs e)
 		{
-
+			//todo
 		}
 	}
 }
