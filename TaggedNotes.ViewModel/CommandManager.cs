@@ -4,6 +4,9 @@ using System.ComponentModel;
 
 namespace TaggedNotes.ViewModel
 {
+	/// <summary>
+	/// Simple managers for the commands
+	/// </summary>
 	public static class CommandManager
 	{
 		private static List<Action> _raiseCanExecuteChangedActions = new List<Action>();

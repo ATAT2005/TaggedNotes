@@ -7,6 +7,9 @@ using System.Windows.Input;
 
 namespace TaggedNotes.ViewModel
 {
+	/// <summary>
+	/// Base class for all relay commands
+	/// </summary>
 	public class RelayCommand : ICommand
 	{
 		private readonly Action execute;

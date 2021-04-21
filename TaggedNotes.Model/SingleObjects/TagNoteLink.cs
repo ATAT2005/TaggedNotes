@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TaggedNotes.Model
 {
+	/// <summary>
+	/// Link between note ang tag (so the tags can be bound to the notes)
+	/// </summary>
 	public class TagNoteLink
 	{
 		public int IdTag { get; set; }

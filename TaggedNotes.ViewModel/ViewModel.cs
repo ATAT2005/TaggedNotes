@@ -27,6 +27,9 @@ namespace TaggedNotes.ViewModel
 		public ObservableCollection<Note> Notes { get; set; }
 
 		private RelayCommand addNote;
+		/// <summary>
+		/// Command for adding notes to collection
+		/// </summary>
 		public RelayCommand AddNote
 		{
 			get
@@ -41,6 +44,9 @@ namespace TaggedNotes.ViewModel
 		}
 
 		private RelayCommand removeNote;
+		/// <summary>
+		/// Command for removing notes from collection
+		/// </summary>
 		public RelayCommand RemoveNote
 		{
 			get
@@ -53,6 +59,9 @@ namespace TaggedNotes.ViewModel
 		}
 
 		private RelayCommand addTag;
+		/// <summary>
+		/// Command for adding tags to collection
+		/// </summary>
 		public RelayCommand AddTag
 		{
 			get
@@ -66,10 +75,14 @@ namespace TaggedNotes.ViewModel
 		}
 
 		private RelayCommand removeTag;
+		/// <summary>
+		/// Command for removing tags from collection
+		/// </summary>
 		public RelayCommand RemoveTag
 		{
 			get
 			{
+
 				return removeTag ??= new RelayCommand(() =>
 				{
 					Tags.Remove(SelectedTag);
@@ -78,6 +91,9 @@ namespace TaggedNotes.ViewModel
 		}
 
 		private RelayCommand saveChanges;
+		/// <summary>
+		/// Command for saving changes to database
+		/// </summary>
 		public RelayCommand SaveChanges
 		{
 			get
