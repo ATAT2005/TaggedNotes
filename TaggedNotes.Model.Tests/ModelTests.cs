@@ -36,5 +36,20 @@ namespace TaggedNotes.Model.Tests
 			Assert.AreEqual(note.TagNoteLinks, new List<Tag>(new[] { tag }));
 			Assert.AreEqual(note.ToString(), "noteText");
 		}
+
+		[Test]
+		public void TestTagNoteLink()
+		{
+			var tag = new Tag(1, "test", true);
+
+			var note = new Note(1, "noteText");
+
+			var tagnotelike = new TagNoteLink(note, tag);
+
+			Assert.AreEqual(tagnotelike.IdNote, 1);
+			Assert.AreEqual(tagnotelike.IdTag, 1);
+			Assert.AreEqual(tagnotelike.Note, note);
+			Assert.AreEqual(tagnotelike.Tag, tag);
+		}
 	}
 }

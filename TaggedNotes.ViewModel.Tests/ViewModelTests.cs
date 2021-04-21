@@ -23,20 +23,16 @@ namespace TaggedNotes.ViewModel.Tests
 			var selectedNode = vm.SelectedNote;
 			Assert.IsNull(selectedNode);
 
-			var tag = new Tag(1, "test", false);
+			var selectedTag = vm.SelectedTag;
+			Assert.IsNull(selectedTag);
 
-			/*vm.AddTag(tag);
-			Assert.AreEqual(vm.Tags.Count, 1);
-			
-			vm.RemoveTag(tag);
-			Assert.AreEqual(vm.Tags.Count, 0);
+			vm.AddNote.Execute(null);
+			var note = vm.Notes[0];
+			vm.RemoveNote.Execute(note);
 
-			var note = new Note(1, "text", new System.Collections.ObjectModel.ObservableCollection<Interfaces.ITag>(new Tag[] { tag }));
-			vm.AddNote(note);
-			Assert.AreEqual(vm.Notes.Count, 1);
-
-			vm.RemoveNote(note);
-			Assert.AreEqual(vm.Tags.Count, 0);*/
+			vm.AddTag.Execute(null);
+			var tag = vm.Tags[0];
+			vm.RemoveTag.Execute(tag);
 		}
 	}
 }
