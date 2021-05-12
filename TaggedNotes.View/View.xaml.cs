@@ -91,7 +91,10 @@ namespace TaggedNotes.View
 				if (!string.IsNullOrWhiteSpace(NoteFilter.Text))
 					textFilterAccepted = note.Text.Contains(NoteFilter.Text, StringComparison.OrdinalIgnoreCase);
 
-				tagFilterAccepted = note.TagNoteLinks.Any(x => GetCheckedTags().Contains(x.IdTag));
+				var checkedTags = GetCheckedTags();
+
+				if (checkedTags?.Count > 0)
+					tagFilterAccepted = note.TagNoteLinks.Any(x => checkedTags.Contains(x.IdTag));
 			}
 
 			e.Accepted = textFilterAccepted && tagFilterAccepted;
