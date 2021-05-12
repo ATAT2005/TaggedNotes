@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+/TaggedNotes.Model/test.db-shm
+/TaggedNotes.Model/test.db-wal
